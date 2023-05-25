@@ -1,7 +1,5 @@
 import React from "react";
 import moment from "moment";
-
-import Logo from "../assets/logo.png";
 import LoveButton from "./LoveButton";
 
 function ArticleCard({ data, onLove, onClick }) {

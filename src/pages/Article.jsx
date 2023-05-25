@@ -1,6 +1,7 @@
 import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
+import { imageLink } from "../utils/constants";
 
 function Article() {
   const { selectedArticle } = useSelector((state) => state.article);
@@ -11,7 +12,7 @@ function Article() {
         <p className="font-bold text-[30px]">{selectedArticle.title}</p>
         <div className="flex flex-row items-center mt-3">
           <img
-            src={`https://minpro-blog.purwadhikabootcamp.com/${user.imgProfile}`}
+            src={imageLink + user.imgProfile}
             className="w-8 h-8 rounded-full mr-2 border-2 border-black"
           />
           <p className="font-semibold">{user.username}</p>
