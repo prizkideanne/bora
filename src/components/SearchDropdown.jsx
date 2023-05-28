@@ -1,8 +1,8 @@
 import { Menu, Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { MdArrowDropDown } from "react-icons/md";
 
-function SearchDropdown({searchType, setSearchType}) {
+function SearchDropdown({ searchType, setSearchType }) {
   return (
     <Menu
       as="div"
@@ -22,7 +22,7 @@ function SearchDropdown({searchType, setSearchType}) {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="absolute z-30 left-0 mt-10 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          {["Title", "Categories", "Topic"].map((type) => {
+          {["Title", "Categories"].map((type) => {
             return (
               <div key={type} className="px-1 py-1 ">
                 <Menu.Item>

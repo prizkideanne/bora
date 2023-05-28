@@ -1,4 +1,3 @@
-import React from "react";
 import moment from "moment";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -7,6 +6,7 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { Autoplay, Pagination, Navigation, EffectFade } from "swiper";
+import { Link } from "react-router-dom";
 
 function Carousel({ carouselData }) {
   return (
@@ -36,31 +36,33 @@ function Carousel({ carouselData }) {
         effect="fade"
         className="h-[450px] rounded-lg"
       >
-        {carouselData.map((data, index) => {
+        {carouselData.map((data) => {
           return (
             <SwiperSlide key={data.id}>
               {({ isActive }) => (
-                <div className="flex items-center h-full">
-                  <img
-                    src={`https://minpro-blog.purwadhikabootcamp.com/${data.imageURL}`}
-                    className="object-cover absolute z-0 w-full h-[450px]"
-                  />
-                  <div className="px-16 w-[450px] z-[1]">
-                    <div
-                      className={`bg-[#F3ECD7]/70 rounded-lg p-2 transition-all duration-500 ease-in-out opacity-100 ${
-                        !isActive && "opacity-0"
-                      }`}
-                    >
-                      <p className="text-sm text-[#1B3044]">
-                        {data.User.username} •{" "}
-                        {moment(data.createdAt).format("MMMM D, YYYY")}
-                      </p>
-                      <p className="text-[18px] font-bold text-[#1B3044]">
-                        {data.title}
-                      </p>
+                <Link to={"/article/" + data.id}>
+                  <div className="flex items-center h-full">
+                    <img
+                      src={`https://minpro-blog.purwadhikabootcamp.com/${data.imageURL}`}
+                      className="object-cover absolute z-0 w-full h-[450px]"
+                    />
+                    <div className="px-16 w-[450px] z-[1]">
+                      <div
+                        className={`bg-[#F3ECD7]/70 rounded-lg p-2 transition-all duration-500 ease-in-out opacity-100 ${
+                          !isActive && "opacity-0"
+                        }`}
+                      >
+                        <p className="text-sm text-[#1B3044]">
+                          {data.User.username} •{" "}
+                          {moment(data.createdAt).format("MMMM D, YYYY")}
+                        </p>
+                        <p className="text-[18px] font-bold text-[#1B3044]">
+                          {data.title}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               )}
             </SwiperSlide>
           );

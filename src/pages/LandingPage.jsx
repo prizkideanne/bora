@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
 import Carousel from "../components/Carousel";
 import Title from "../components/Title";
 
-import ArticleCard from "../components/ArticleCard";
 import CategoriesSlider from "../components/CategoriesSlider";
 import TopicButton from "../components/TopicButton";
 import LoveButton from "../components/LoveButton";
 import { API } from "../utils/constants";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addSelectedArticle } from "../store/articleReducer/articleSlice";
+import ArticlesWithPagination from "../components/ArticlesWithPagination";
 
 function LandingPage() {
-  const dispatch = useDispatch();
-
-  const navigate = useNavigate();
   const [carouselData, setCarouselData] = useState([]);
   const [articles, setArticles] = useState([]);
   const [mostFavoriteArticles, setMostFavoriteArticles] = useState([]);
@@ -26,7 +20,8 @@ function LandingPage() {
     id: 9999,
     name: "All",
   });
-  const [selectedTopic, setSelectedTopic] = useState();
+  const [page, setPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     getArticles().then((response) => {
@@ -36,7 +31,7 @@ function LandingPage() {
         setCarouselData(response.articles);
       }
     });
-  }, [selectedCategory.id]);
+  }, [selectedCategory.id, currentPage]);
 
   useEffect(() => {
     getCategories();
@@ -56,9 +51,11 @@ function LandingPage() {
     const categoryId =
       selectedCategory.name !== "All" ? `&id_cat=${selectedCategory.id}` : "";
     return axios
-      .get(`${API}/blog?page=1&sort=DESC${categoryId}`)
+      .get(`${API}/blog?size=6&page=${currentPage}&sort=DESC${categoryId}`)
       .then((response) => {
         const articles = response.data.result;
+        setPage(response.data.page);
+        setCurrentPage(response.data.blogPage);
         const keywords = [];
 
         articles.map((article) => {
@@ -85,20 +82,10 @@ function LandingPage() {
       .get(`${API}/blog/pagFav?listLimit=10`)
       .then((response) => {
         const articles = response.data.result;
-        console.log(response);
         setMostFavoriteArticles(articles);
       })
       .catch((err) => console.log(err));
   };
-
-  function loveArticle(id) {
-    console.log("aku suka article dengan id ", id);
-  }
-
-  function handleSelectArticle(data) {
-    dispatch(addSelectedArticle(data));
-    navigate("/article");
-  }
 
   return (
     <div>
@@ -117,27 +104,11 @@ function LandingPage() {
             />
 
             <div className="mb-10">
-              {articles.length === 0 ? (
-                <div className="flex w-full items-center justify-center flex-col">
-                  <img src="https://c-cl.cdn.smule.com/rs-s-sf-2/sing_google/performance/cover/95/7a/14473f05-1c23-4bae-b604-4e6b5168fd37.jpg" />
-                  <p className="text-center font-bold text-[52px]">
-                    HAHH? KOSONGG??
-                  </p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 gap-x-10 gap-y-5">
-                  {articles.map((data) => {
-                    return (
-                      <ArticleCard
-                        key={data.id}
-                        data={data}
-                        onLove={(id) => loveArticle(id)}
-                        onClick={() => handleSelectArticle(data)}
-                      />
-                    );
-                  })}
-                </div>
-              )}
+              <ArticlesWithPagination
+                articles={articles}
+                page={page}
+                setCurrentPage={setCurrentPage}
+              />
             </div>
           </div>
 

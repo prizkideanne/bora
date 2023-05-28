@@ -1,25 +1,125 @@
 import moment from "moment";
-import React from "react";
+import { API, imageLink } from "../utils/constants";
+import { useParams } from "react-router";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import PhotoProfile from "../components/PhotoProfile";
 import { useSelector } from "react-redux";
-import { imageLink } from "../utils/constants";
+import Loved from "../assets/loved.png";
 
 function Article() {
-  const { selectedArticle } = useSelector((state) => state.article);
-  const user = selectedArticle.User;
-  return (
+  const { id } = useParams();
+  const { userData } = useSelector((state) => state.user);
+  const { token } = userData;
+  const [article, setArticle] = useState(null);
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoved, setIsLoved] = useState(true);
+
+  // check if content is html or string
+  const isHtml = (str) => {
+    return /<[a-z][\s\S]*>/i.test(str);
+  };
+
+  useEffect(() => {
+    axios
+      .get(API + "/blog/" + id)
+      .then((res) => {
+        const result = res.data[0];
+        setArticle(result);
+        setUser(result.User);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [token]);
+
+  useEffect(() => {
+    if (token && article) {
+      getLikedBlog();
+    }
+  }, [token, article]);
+
+  const loveArticle = () => {
+    axios
+      .post(
+        API + "/blog/like",
+        {
+          BlogId: article.id,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        setIsLoved(true);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getLikedBlog = async () => {
+    await axios
+      .get(API + "/blog/pagLike", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then(({ data }) => {
+        const articles = data.result;
+        console.log(articles, article.id);
+        const checkIfAlreadyLoved = articles.some((item) => {
+          return item.BlogId === article.id;
+        });
+        console.log(checkIfAlreadyLoved);
+        setIsLoved(checkIfAlreadyLoved);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  return isLoading ? (
+    <div className="h-screen w-screen flex items-center justify-center">
+      <div className="h-32 w-32 border-black border-t-2 border-l-2 animate-spin  rounded-full mt-10" />
+    </div>
+  ) : (
     <div className="min-h-screen">
-      <div className="flex flex-col justify-center my-20 mx-40">
-        <p className="font-bold text-[30px]">{selectedArticle.title}</p>
-        <div className="flex flex-row items-center mt-3">
-          <img
-            src={imageLink + user.imgProfile}
-            className="w-8 h-8 rounded-full mr-2 border-2 border-black"
-          />
-          <p className="font-semibold">{user.username}</p>
-          <p className="mx-1">•</p>
-          <p>{moment(selectedArticle.createdAt).format("MMMM D, YYYY")}</p>
+      <div className="flex flex-col justify-center my-10 mx-20">
+        <p className="font-bold text-[30px]">{article.title}</p>
+        <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row items-center mt-3">
+            <PhotoProfile image={user.imgProfile} className={"w-8 h-8"} />
+            <p className="font-semibold ml-3">{user.username}</p>
+            <p className="mx-1">•</p>
+            <p>{moment(article.createdAt).format("MMMM D, YYYY")}</p>
+          </div>
+          {token && (
+            <button
+              disabled={isLoved}
+              className="bg-gray-400 p-3 rounded-lg flex flex-row items-center disabled:bg-red-400"
+              onClick={loveArticle}
+            >
+              <img src={Loved} className="w-3 h-3 mr-3" />
+              <p>Love!</p>
+            </button>
+          )}
         </div>
-        <p className="mt-5 text-left">{selectedArticle.content}</p>
+        <img
+          src={imageLink + article.imageURL}
+          className="my-10 w-full h-[300px] object-cover"
+        />
+        {isHtml(article.content) ? (
+          <div
+            className="mt-5 text-left"
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          />
+        ) : (
+          <p className="mt-5 text-left">{article.content}</p>
+        )}
       </div>
     </div>
   );

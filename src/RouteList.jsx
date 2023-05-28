@@ -1,42 +1,28 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
-import axios from "axios";
-import { API } from "./utils/constants";
-import { addUserData } from "./store/userReducer/userSlice";
+import { useEffect, useState } from "react";
 import LandingPage from "./pages/LandingPage";
 import LogIn from "./pages/LogIn";
-import Profile from "./pages/Profile";
 import Layout from "./components/Layout";
 import Article from "./pages/Article";
 import Search from "./pages/Search";
-import { useDispatch } from "react-redux";
+import Register from "./pages/Register";
+import Verification from "./pages/Verification";
+import useAuth from "./hooks/useAuth";
+import Profile from "./pages/Profile";
+import Create from "./pages/Create";
+import ForgetPassword from "./pages/ForgetPassword";
+import PrivateWrapper from "./PrivateWrapper";
+import PublicWrapper from "./PublicWrapper";
 
 function RouteList() {
   const token = localStorage.getItem("token");
-  const dispatch = useDispatch();
+  const { getProfileWithToken } = useAuth({ token });
+
   useEffect(() => {
     if (token) {
-      axios
-        .get(API + "/auth", {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        })
-        .then(({ data }) => {
-          const { id, email, imgProfile, phone, username } = data;
-          const userData = {
-            id,
-            email,
-            imgProfile,
-            phone,
-            username,
-          };
-          dispatch(addUserData(userData));
-        })
-        .catch((err) => console.log(err));
+      getProfileWithToken();
     }
-  }, [token]);
+  }, [token, getProfileWithToken]);
 
   return (
     <BrowserRouter>
@@ -49,17 +35,48 @@ function RouteList() {
             </Layout>
           }
         />
-        <Route path="/login" element={<LogIn />} />
+        <Route element={<PublicWrapper />}>
+          <Route
+            path="/login"
+            element={
+              <Layout>
+                <LogIn />
+              </Layout>
+            }
+          />
+        </Route>
+        <Route element={<PublicWrapper />}>
+          <Route
+            path="/forget-password"
+            element={
+              <Layout>
+                <ForgetPassword />
+              </Layout>
+            }
+          />
+        </Route>
+        <Route element={<PublicWrapper />}>
+          <Route
+            path="/register"
+            element={
+              <Layout>
+                <Register />
+              </Layout>
+            }
+          />
+        </Route>
+        <Route element={<PrivateWrapper />}>
+          <Route
+            path="/profile"
+            element={
+              <Layout>
+                <Profile />
+              </Layout>
+            }
+          />
+        </Route>
         <Route
-          path="/profile"
-          element={
-            <Layout>
-              <Profile />
-            </Layout>
-          }
-        />
-        <Route
-          path="/article"
+          path="/article/:id"
           element={
             <Layout>
               <Article />
@@ -74,6 +91,31 @@ function RouteList() {
             </Layout>
           }
         />
+        <Route element={<PrivateWrapper />}>
+          <Route
+            path="/create"
+            element={
+              <Layout>
+                <Create />
+              </Layout>
+            }
+          />
+        </Route>
+
+        <Route element={<PublicWrapper />}>
+          <Route
+            path="/verification/:token"
+            caseSensitive={false}
+            element={<Verification />}
+          />
+        </Route>
+        <Route element={<PublicWrapper />}>
+          <Route
+            path="/verification-change-email/:token"
+            caseSensitive={false}
+            element={<Verification />}
+          />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

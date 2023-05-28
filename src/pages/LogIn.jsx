@@ -1,32 +1,27 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import { useState } from "react";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 import { API } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUserData } from "../store/userReducer/userSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 YupPassword(Yup);
 
 function LogIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        // .email("Please use email format")
-        .required("This field is required"),
+      email: Yup.string().required("This field is required"),
       password: Yup.string().required("This field is required"),
-      // .min(6, "Password Minimum 6 characters")
-      // .minLowercase(1, "Minimum lowercase 1 character")
-      // .minSymbols(1, "Minimum special character is 1 character")
-      // .minUppercase(1, "Minimum Uppercase character is 1 character"),
     }),
     onSubmit: (values) => {
       const { email, password } = values;
@@ -52,7 +47,7 @@ function LogIn() {
           username,
         };
         dispatch(addUserData(userData));
-        navigate("/");
+        navigate("/", { replace: true });
       })
       .catch((err) => {
         console.log(err);
@@ -65,12 +60,15 @@ function LogIn() {
       <p className="text-[68px] font-bold text-red-700 rotate-[10deg] mb-20 absolute top-20 mx-auto">
         {errorMessage}
       </p>
-      <div className="flex flex-col items-center justify-center bg-pink-400 w-[600px]">
+      <p className="text-[68px] font-bold text-blue-700 rotate-[-90deg] left-44 absolute">
+        LOGIN
+      </p>
+      <div className="flex flex-col items-center justify-center bg-yellow-400 w-[600px]">
         <form
           onSubmit={formik.handleSubmit}
           className="flex flex-col items-center justify-center"
         >
-          <div className="flex flex-col w-[400px]">
+          <div className="flex flex-col w-[400px] mt-5">
             <input
               id="email"
               type="email"
@@ -79,28 +77,47 @@ function LogIn() {
               {...formik.getFieldProps("email")}
             />
             {formik.touched.email && formik.errors.email ? (
-              <div>{formik.errors.email}</div>
+              <span className="text-red-500">{formik.errors.email}</span>
             ) : null}
 
-            <input
-              className="border border-black"
-              type="password"
-              placeholder="Password"
-              {...formik.getFieldProps("password")}
-            />
+            <div className="bg-white flex flex-row border border-black mt-5">
+              <input
+                className="flex flex-1"
+                type={isShowPassword ? "text" : "password"}
+                placeholder="Password"
+                {...formik.getFieldProps("password")}
+              />
+              <button
+                type="button"
+                onClick={() => setIsShowPassword(!isShowPassword)}
+                className="w-20 text-gray-50 bg-blue-600 hover:opacity-75"
+              >
+                {isShowPassword ? "Hide" : "Show"}
+              </button>
+            </div>
             {formik.touched.password && formik.errors.password ? (
-              <div>{formik.errors.password}</div>
+              <span className="text-red-500">{formik.errors.password}</span>
             ) : null}
           </div>
-          <button type="submit" className="py-1 px-4 bg-white hover:opacity-75">
+          <button
+            type="submit"
+            className="py-1 px-4 bg-white hover:opacity-75 my-5"
+          >
             Login
           </button>
         </form>
 
-        <button>Forget Password</button>
-        <p>
-          Don't have an account? <span>Register Here</span>
-        </p>
+        <div className="flex items-center flex-col mb-5">
+          <Link to="/forget-password">
+            <button>Forget Password</button>
+          </Link>
+          <p>
+            Don&apos;t have an account?{" "}
+            <Link to="/register">
+              <span className="underline">Register here</span>
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
