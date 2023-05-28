@@ -6,9 +6,9 @@ import Title from "../components/Title";
 
 import CategoriesSlider from "../components/CategoriesSlider";
 import TopicButton from "../components/TopicButton";
-import LoveButton from "../components/LoveButton";
 import { API } from "../utils/constants";
 import ArticlesWithPagination from "../components/ArticlesWithPagination";
+import FavoriteArticle from "../components/FavoriteArticle";
 
 function LandingPage() {
   const [carouselData, setCarouselData] = useState([]);
@@ -141,18 +141,7 @@ function LandingPage() {
           ) : (
             <div className="grid grid-cols-2 gap-x-10 gap-y-5">
               {mostFavoriteArticles.map((data) => {
-                return (
-                  <div
-                    className="flex flex-col justify-between bg-white rounded-lg p-3"
-                    key={data.id}
-                  >
-                    <p className="font-semibold mb-2">{data.title}</p>
-                    <div className="flex flex-row items-center">
-                      <TopicButton name={data.Category.name} isDisabled />
-                      <LoveButton isDisabled loveCount={data.total_fav} />
-                    </div>
-                  </div>
-                );
+                return <FavoriteArticle key={data.id} data={data} />;
               })}
             </div>
           )}

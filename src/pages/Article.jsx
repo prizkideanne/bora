@@ -22,6 +22,10 @@ function Article() {
   };
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     axios
       .get(API + "/blog/" + id)
       .then((res) => {
