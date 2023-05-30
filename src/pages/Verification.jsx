@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { API } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUserData } from "../store/userReducer/userSlice";
 
 function Verification() {
   let { token } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
@@ -26,9 +27,7 @@ function Verification() {
           dispatch(
             addUserData({ id, username, email, phone, imgProfile, token })
           );
-          setIsLoading(false);
-          setIsSucceed(true);
-          setMessage("Verification Success");
+
           setTimeout(() => {
             navigate("/", { replace: true });
           }, 2000);
@@ -44,7 +43,16 @@ function Verification() {
           },
         })
         .then(() => {
-          handleLoginByToken();
+          setIsLoading(false);
+          setIsSucceed(true);
+          setMessage("Verification Success");
+          if (location.pathname.includes("email")) {
+            setTimeout(() => {
+              navigate("/login", { replace: true });
+            }, 2000);
+          } else {
+            handleLoginByToken();
+          }
         })
         .catch(({ response }) => {
           setIsLoading(false);
