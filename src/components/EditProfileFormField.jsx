@@ -8,11 +8,11 @@ function EditProfileFormField({
   const isUserInformation = ["username", "email", "phone"].includes(fieldName);
   return isUserInformation ? (
     <div className="flex flex-row items-center mb-5">
-      <p className="w-[200px]">{title}</p>
-      <div className="flex flex-1 flex-row items-center">
+      <p className="w-[200px] text-[#1B3044]">{title}</p>
+      <div className="flex flex-1 flex-row items-center border border-[#1B3044] rounded-md">
         <input
           type="text"
-          className={`p-2 rounded-md ${
+          className={`p-2 rounded-md text-[#1B3044] ${
             isUserInformation ? "w-full" : "w-full xl:w-[650px]"
           }`}
           {...formik.getFieldProps(fieldName)}
@@ -38,9 +38,9 @@ function EditProfileFormField({
     </div>
   ) : (
     <div className="flex flex-row items-center mb-5">
-      <p className="w-[200px]">{title}</p>
+      <p className="w-[200px] text-[#1B3044]">{title}</p>
       <div className="flex flex-1 flex-row items-center">
-        <div className="bg-white flex w-[500px] flex-row border border-black mt-5">
+        <div className="bg-white flex w-[500px] flex-row border border-[#1B3044] rounded-md mt-5 p-1">
           <input
             type={isShowPassword ? "text" : "password"}
             className={`p-2 rounded-md w-full xl:w-[650px]
@@ -50,7 +50,7 @@ function EditProfileFormField({
           <button
             type="button"
             onClick={() => setIsShowPassword(!isShowPassword)}
-            className="w-20 px-3 text-gray-50 bg-blue-600 hover:opacity-75"
+            className="w-20 px-3 text-gray-50 bg-blue-600 hover:opacity-75 rounded-md"
           >
             {isShowPassword ? "Hide" : "Show"}
           </button>

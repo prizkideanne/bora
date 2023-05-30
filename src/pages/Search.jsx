@@ -32,13 +32,13 @@ function Search() {
   }, [type, value, sort, currentPage]);
 
   return (
-    <div className="min-h-screen p-10">
+    <div className="min-h-screen mx-20 my-10">
       <div className="flex flex-row justify-between items-center mb-10">
-        <p className="text-[60px]">Search Result</p>
+        <p className="text-[30px] text-[#1B3044] font-bold">Search Result</p>
         <div>
-          <label className="mr-3 text-lg">Sort by:</label>
+          <label className="mr-3 text-lg text-[#1B3044]">Sort by:</label>
           <select
-            className="px-3 py-1 rounded-md"
+            className="px-3 py-1 rounded-md border border-[#1B3044]"
             onChange={(e) => setSort(e.target.value)}
           >
             <option value="DESC">Newest</option>

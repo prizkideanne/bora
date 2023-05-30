@@ -196,7 +196,6 @@ function Profile() {
         },
       })
       .then(({ data }) => {
-        console.log(data);
         setMyArticlePage(data.page);
         setMyArticleCurrentPage(data.blogPage);
         setMyArticles(data.result);
@@ -275,23 +274,23 @@ function Profile() {
         onDelete={deleteArticle}
       />
       <div className="flex flex-row">
-        <div className="flex flex-col items-center justify-center w-[350px] h-[400px] p-5 rounded-lg bg-blue-400 mt-10 mr-10">
-          <PhotoProfile image={imgProfile} className={"w-40 h-40 mb-5"} />
-          <p className="text-[32px] font-semibold">{username}</p>
-          <p className="text-[18px] my-1">{email}</p>
-          <p className="text-[18px]">{phone}</p>
+        <div className="flex flex-col items-center justify-center w-[350px] h-[400px] p-5 rounded-lg bg-blue-500 mt-10 mr-10">
+          <PhotoProfile image={imgProfile} className={"w-40 h-40 mb-5 border-[#1B3044]"} />
+          <p className="text-[30px] text-white font-semibold">{username}</p>
+          <p className="text-[16px] text-white my-1">{email}</p>
+          <p className="text-[16px] text-white">{phone}</p>
         </div>
         <Tabs
           selectedIndex={tabIndex}
           onSelect={(index) => setTabIndex(index)}
           className={"w-full"}
         >
-          <TabList>
+          <TabList className={"text-[#1B3044]"}>
             <Tab>My Blog</Tab>
             <Tab>Liked Blog</Tab>
             <Tab>Edit Profile</Tab>
           </TabList>
-          <TabPanel className={"p-3"}>
+          <TabPanel className={"p-3 text-[#1B3044]"}>
             <ArticlesWithPagination
               articles={myArticles}
               page={myArticlePage}

@@ -61,12 +61,12 @@ function Header() {
         <Link to={"/"}>
           <button className="flex flex-row items-center">
             <img src={Logo} className="w-10" />
-            <span className="text-[#1B3044]">BORA</span>
+            <span className="text-[#1B3044] font-bold">BORA</span>
           </button>
         </Link>
 
         {!isAuth && (
-          <div className="w-[350px] flex flex-row items-center h-8 border border-black rounded-md ml-4">
+          <div className="w-[350px] flex flex-row items-center h-8 border border-black rounded-md ml-6">
             <SearchDropdown
               searchType={searchType}
               setSearchType={setSearchType}
@@ -132,7 +132,7 @@ function Header() {
             </div>
           ) : (
             <Link to="/login">
-              <button className="border-2 shadow-md shadow-black border-[#9B3838] bg-[#9B3838] rounded-[20px] px-3 py-1 text-[#F3ECD7]">
+              <button className="border-2 shadow-md shadow-black border-[#9B3838] bg-[#9B3838] rounded-[20px] px-3 py-1 text-[#F3ECD7] text-[18px]">
                 Login/Register
               </button>
             </Link>

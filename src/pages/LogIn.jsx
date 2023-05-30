@@ -63,7 +63,7 @@ function LogIn() {
       <p className="text-[68px] font-bold text-blue-700 rotate-[-90deg] left-44 absolute">
         LOGIN
       </p>
-      <div className="flex flex-col items-center justify-center bg-yellow-400 w-[600px]">
+      <div className="flex flex-col items-center justify-center bg-yellow-400 w-[600px] rounded-lg">
         <form
           onSubmit={formik.handleSubmit}
           className="flex flex-col items-center justify-center"
@@ -73,14 +73,14 @@ function LogIn() {
               id="email"
               type="email"
               placeholder="Email/Username/Phone"
-              className="border border-black"
+              className="border border-[#1B3044] rounded-md p-1"
               {...formik.getFieldProps("email")}
             />
             {formik.touched.email && formik.errors.email ? (
               <span className="text-red-500">{formik.errors.email}</span>
             ) : null}
 
-            <div className="bg-white flex flex-row border border-black mt-5">
+            <div className="bg-white flex flex-row border border-[#1B3044] mt-5 rounded-md p-1">
               <input
                 className="flex flex-1"
                 type={isShowPassword ? "text" : "password"}
@@ -90,7 +90,7 @@ function LogIn() {
               <button
                 type="button"
                 onClick={() => setIsShowPassword(!isShowPassword)}
-                className="w-20 text-gray-50 bg-blue-600 hover:opacity-75"
+                className="w-20 text-gray-50 bg-blue-600 hover:opacity-75 rounded-md"
               >
                 {isShowPassword ? "Hide" : "Show"}
               </button>
@@ -101,7 +101,7 @@ function LogIn() {
           </div>
           <button
             type="submit"
-            className="py-1 px-4 bg-white hover:opacity-75 my-5"
+            className="py-1 px-4 bg-white hover:opacity-75 border border-[#1B3044] my-5 rounded-md text-[#1B3044]"
           >
             Login
           </button>
@@ -109,12 +109,12 @@ function LogIn() {
 
         <div className="flex items-center flex-col mb-5">
           <Link to="/forget-password">
-            <button>Forget Password</button>
+            <span className="underline text-[#1B3044]">Forget Password</span>
           </Link>
-          <p>
+          <p className="mt-2 text-[#1B3044]">
             Don&apos;t have an account?{" "}
             <Link to="/register">
-              <span className="underline">Register here</span>
+              <span className="underline text-[#1B3044]">Register here</span>
             </Link>
           </p>
         </div>

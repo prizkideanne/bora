@@ -96,13 +96,13 @@ function Create() {
   return (
     <div className="min-h-screen flex flex-col px-20 py-10">
       <div className="flex flex-row justify-between items-center mb-10">
-        <p className="text-[28px] font-bold">
+        <p className="text-[28px] font-bold text-[#1B3044]">
           Let&apos;s write something right now!
         </p>
 
         <button
           type="submit"
-          className="bg-[#FFB800] text-white px-10 py-2 rounded-lg"
+          className="bg-[#FFB800] text-white px-10 py-2 rounded-lg hover:font-semibold"
           onClick={() => {
             formik.handleSubmit();
           }}
@@ -118,7 +118,7 @@ function Create() {
           placeholder={"Write your title here"}
         />
         <div className="flex flex-row items-center mb-10">
-          <label className="w-[200px] font-medium text-[20px]">
+          <label className="w-[200px] font-medium text-[20px] text-[#1B3044]">
             Categories
           </label>
           <ArticleCategoryField
@@ -158,11 +158,11 @@ function Create() {
         />
         {/* Cover Image */}
         <div className="flex flex-row items-center">
-          <label className="w-[162px] font-medium text-[20px]">
+          <label className="w-[162px] font-medium text-[20px] text-[#1B3044]">
             Cover Image
           </label>
 
-          <div className="flex flex-col bg-white">
+          <div className="flex flex-col bg-white rounded-md text-[#1B3044]">
             <input
               type="file"
               onChange={(e) => {
@@ -174,7 +174,7 @@ function Create() {
         {cover && (
           <img
             src={URL.createObjectURL(cover)}
-            className="w-[300px] h-[300px] object-cover my-10 ml-[162px]"
+            className="w-[300px] h-[300px] object-cover my-10 ml-[162px] rounded-md"
           />
         )}
         <div className="bg-white p-5 min-h-[590px] rounded-lg mt-10">
@@ -190,7 +190,7 @@ function Create() {
         <div className="flex justify-center mt-10 w-full">
           <button
             type="submit"
-            className="bg-[#FFB800] text-white px-40 py-4 text-[20px] rounded-lg"
+            className="bg-[#FFB800] text-white px-40 py-4 text-[20px] rounded-lg hover:font-semibold"
             onClick={() => {
               formik.handleSubmit();
             }}

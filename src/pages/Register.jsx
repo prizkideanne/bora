@@ -80,14 +80,14 @@ function Register() {
           e.preventDefault();
           formik.handleSubmit();
         }}
-        className="flex flex-col items-center justify-center bg-yellow-400 w-[600px]"
+        className="flex flex-col items-center justify-center bg-yellow-400 w-[600px] rounded-lg"
       >
         <div className="flex flex-col w-[400px] my-5">
           <input
             id="email"
             type="email"
             placeholder="Email"
-            className="border border-black mb-5"
+            className="border border-[#1B3044] mb-5 rounded-md p-1"
             {...formik.getFieldProps("email")}
           />
           {formik.touched.email && formik.errors.email ? (
@@ -95,7 +95,7 @@ function Register() {
           ) : null}
 
           <input
-            className="border border-black mb-5"
+            className="border border-[#1B3044] mb-5 rounded-md p-1"
             type="text"
             placeholder="Username"
             {...formik.getFieldProps("username")}
@@ -105,7 +105,7 @@ function Register() {
           ) : null}
 
           <input
-            className="border border-black mb-5"
+            className="border border-[#1B3044] mb-5 rounded-md p-1"
             type="text"
             placeholder="Phone"
             {...formik.getFieldProps("phone")}
@@ -114,7 +114,7 @@ function Register() {
             <span className="text-red-500">{formik.errors.phone}</span>
           ) : null}
 
-          <div className="bg-white flex flex-row border border-black mb-5">
+          <div className="bg-white flex flex-row border border-[#1B3044] mb-5 rounded-md p-1">
             <input
               className="flex flex-1"
               type={isShowPassword ? "text" : "password"}
@@ -124,7 +124,7 @@ function Register() {
             <button
               type="button"
               onClick={() => setIsShowPassword(!isShowPassword)}
-              className="w-20 text-gray-50 bg-blue-600 hover:opacity-75"
+              className="w-20 text-gray-50 bg-blue-600 hover:opacity-75 rounded-md"
             >
               {isShowPassword ? "Hide" : "Show"}
             </button>
@@ -133,7 +133,7 @@ function Register() {
             <span className="text-red-500">{formik.errors.password}</span>
           ) : null}
 
-          <div className="bg-white flex flex-row border border-black">
+          <div className="bg-white flex flex-row border border-[#1B3044] rounded-md p-1">
             <input
               className="flex flex-1"
               type={isShowConfirmPassword ? "text" : "password"}
@@ -142,7 +142,7 @@ function Register() {
             />
             <button
               onClick={() => setIsShowConfirmPassword(!isShowConfirmPassword)}
-              className="w-20 text-gray-50 bg-blue-600 hover:opacity-75"
+              className="w-20 text-gray-50 bg-blue-600 hover:opacity-75 rounded-md"
             >
               {isShowConfirmPassword ? "Hide" : "Show"}
             </button>
@@ -155,14 +155,14 @@ function Register() {
         </div>
         <button
           type="submit"
-          className="py-1 px-4 bg-white hover:opacity-75 mb-5"
+          className="py-1 px-4 bg-white hover:opacity-75 mb-5 rounded-md border border-[#1B3044] text-[#1B3044]"
         >
           Register
         </button>
-        <p className="mb-5">
+        <p className="mb-5 text-[#1B3044]">
           Already have an account?{" "}
           <Link to="/login">
-            <span className="underline">Login here</span>
+            <span className="underline text-[#1B3044]">Login here</span>
           </Link>
         </p>
       </form>

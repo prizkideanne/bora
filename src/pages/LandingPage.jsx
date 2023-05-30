@@ -90,7 +90,7 @@ function LandingPage() {
   return (
     <div>
       <div className="my-10 mx-20">
-        <Title text={"Newest Blog"} />
+        <Title text={"Latest Articles"} />
 
         <Carousel carouselData={carouselData} />
 
@@ -113,7 +113,7 @@ function LandingPage() {
           </div>
 
           <div className="px-4 border-l border-[#9B3838] border-dashed ml-4">
-            <p className="text-[#1B3044] font-bold text-[18px]">Topics</p>
+            <p className="text-[#1B3044] font-bold text-[18px]">Keywords</p>
             <div className="mt-3">
               {topics.map((data) => {
                 return (
@@ -139,10 +139,12 @@ function LandingPage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-x-10 gap-y-5">
-              {mostFavoriteArticles.map((data) => {
-                return <FavoriteArticle key={data.id} data={data} />;
-              })}
+            <div className="pb-5">
+              <div className="grid grid-cols-2 gap-x-10 gap-y-5">
+                {mostFavoriteArticles.map((data) => {
+                  return <FavoriteArticle key={data.id} data={data} />;
+                })}
+              </div>
             </div>
           )}
         </div>

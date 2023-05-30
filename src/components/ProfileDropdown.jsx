@@ -28,7 +28,7 @@ function ProfileDropdown({ user, onLogout }) {
             <Menu.Item>
               <Link to="/profile">
                 <div
-                  className={`group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-[#1B3044] hover:font-semibold`}
                 >
                   My Profile
                 </div>
@@ -36,7 +36,7 @@ function ProfileDropdown({ user, onLogout }) {
             </Menu.Item>
             <Menu.Item>
               <button
-                className={`group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-[#1B3044] hover:font-semibold`}
                 onClick={() => onLogout()}
               >
                 Logout

@@ -16,7 +16,7 @@ function ArticleCategoryField({
         <div className="relative">
           <div className="relative w-full cursor-default overflow-hidden rounded-md bg-white  text-left focus:outline-none  focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
-              className="w-full border-none text-[20px] px-4 py-[11px] leading-5 ring-0 focus:ring-0 focus:outline-none"
+              className="w-full border-none text-[18px] text-[#1B3044] px-4 py-[11px] leading-5 ring-0 focus:ring-0 focus:outline-none"
               displayValue={(person) => person.name}
               placeholder="Select a category"
               onChange={(event) => setQuery(event.target.value)}

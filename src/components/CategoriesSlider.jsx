@@ -46,7 +46,7 @@ function CategoriesSlider({
             <SwiperSlide
               onClick={() => onClick(category)}
               key={category.id}
-              className={`h-10 bg-[#1B3044] text-[#F3ECD7] hover:opacity-75 hover:cursor-pointer rounded-lg hover:font-bold w-[50px] flex items-center justify-center ${
+              className={`h-10 bg-[#1B3044] text-[#F3ECD7] text-[16px] hover:opacity-75 hover:cursor-pointer rounded-lg hover:font-bold w-[50px] flex items-center justify-center ${
                 selectedCategory &&
                 selectedCategory.id === category.id &&
                 "font-bold"

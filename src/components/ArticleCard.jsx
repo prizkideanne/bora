@@ -18,7 +18,7 @@ function ArticleCard({ data, onClick, isMyBlog, deleteArticle }) {
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-col justify-between">
           <p
-            className="text-[#1B3044] font-semibold pt-2 pl-2 hover:cursor-pointer"
+            className="text-[#1B3044] text-[18px] font-semibold pt-2 pl-2 hover:cursor-pointer"
             onClick={onClick}
           >
             {articleData.title}

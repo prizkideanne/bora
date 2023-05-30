@@ -52,7 +52,7 @@ function Carousel({ carouselData }) {
                           !isActive && "opacity-0"
                         }`}
                       >
-                        <p className="text-sm text-[#1B3044]">
+                        <p className="text-[14px] text-[#1B3044]">
                           {data.User.username} •{" "}
                           {moment(data.createdAt).format("MMMM D, YYYY")}
                         </p>

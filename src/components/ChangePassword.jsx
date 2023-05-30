@@ -9,7 +9,7 @@ function ChangePassword({ passwordForm }) {
   return (
     <div className="flex flex-col">
       <div className="mb-10 w-full border-b border-gray-400">
-        <p className="text-[32px] font-semibold">Change Password</p>
+        <p className="text-[30px] text-[#1B3044] font-semibold">Change Password</p>
       </div>
       <form onSubmit={passwordForm.handleSubmit} className="flex flex-col">
         <EditProfileFormField
